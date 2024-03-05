@@ -9,4 +9,4 @@ To play the game:
 3. Build obstrction by left clicking + hold
 4. Press space to start
 5. Press C to clear and restart!
-6. 
+   
