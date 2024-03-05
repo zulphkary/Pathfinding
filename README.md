@@ -10,3 +10,7 @@ To play the game:
 4. Press space to start
 5. Press C to clear and restart!
    
+
+
+https://github.com/zulphkary/Pathfinding/assets/148035091/30cf4f13-caf2-4f4d-b36f-09deef1dfa88
+
