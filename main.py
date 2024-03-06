@@ -2,7 +2,6 @@ import pygame
 import math
 from queue import PriorityQueue
 import sys
-#comment
 
 WIDTH = 800
 WIN = pygame.display.set_mode((WIDTH, WIDTH))
@@ -10,7 +9,7 @@ pygame.display.set_caption("A* Path Finding Algorithm")
 
 RED = (255, 0, 0)
 GREEN = (0, 255, 0)
-BLUE = (0, 255, 0)
+BLUE = (0, 0, 255)
 YELLOW = (255, 255, 0)
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
@@ -37,7 +36,7 @@ class Node:
         return self.color == RED
 
     def is_open(self):
-        return self.color == GREEN
+        return self.color == BLUE
 
     def is_barrier(self):
         return self.color == BLACK
@@ -141,13 +140,28 @@ def algorithm(draw, grid, start, end):
                     open_set.put((f_score[neighbor], count, neighbor))
                     open_set_hash.add(neighbor)
                     neighbor.make_open()
+            
+            # draw color gradient from source
+            colors = [(225, 0, 0), (0, 225, 0), (0, 0, 225)]  # red, green, blue
+            color_index = int(temp_g_score / 95 * (len(colors) - 1))
+
+            color1 = colors[color_index]
+            color2 = colors[color_index + 1] if color_index < len(colors) - 1 else colors[color_index]
+
+            percentage = (temp_g_score % 95) / 95
+            r = color1[0] - int((color1[0] - color2[0]) * percentage)
+            g = color1[1] - int((color1[1] - color2[1]) * percentage)
+            b = color1[2] - int((color1[2] - color2[2]) * percentage)
+            
+            
+            if current != start:
+                current.color = (r,g,b)
+
 
         draw()
 
-        if current != start:
-            current.make_closed()
-
     return False
+
 
 
 def make_grid(rows, width):
@@ -205,9 +219,13 @@ def main(win, width):
             if event.type == pygame.QUIT:
                 run = False
 
-            if pygame.mouse.get_pressed()[0]: # LEFT
+            if pygame.mouse.get_pressed()[0]: # left click
                 pos = pygame.mouse.get_pos()
                 row, col = get_clicked_pos(pos, ROWS, width)
+                global start_row
+                global start_col
+                start_row,start_col=row,col
+
                 node = grid[row][col]
                 if not start and node != end:
                     start = node
@@ -220,7 +238,7 @@ def main(win, width):
                 elif node != end and node != start:
                     node.make_barrier()
 
-            elif pygame.mouse.get_pressed()[2]: # RIGHT
+            elif pygame.mouse.get_pressed()[2]: # right click
                 pos = pygame.mouse.get_pos()
                 row, col = get_clicked_pos(pos, ROWS, width)
                 node = grid[row][col]
@@ -230,7 +248,7 @@ def main(win, width):
                 elif node == end:
                     end = None
 
-            if event.type == pygame.KEYDOWN:
+            if event.type == pygame.KEYDOWN: #space
                 if event.key == pygame.K_SPACE and start and end:
                     for row in grid:
                         for node in row:
