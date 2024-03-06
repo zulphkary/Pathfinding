@@ -6,7 +6,6 @@ The shortest path algorthim used is A* (star) which searches its neighbours whil
 
 **How to play**
 
-To play the game:
 1. First left click to choose starting position
 2. Second left click to choose ending position
 3. Build obstrction by left clicking + hold
