@@ -9,8 +9,12 @@ To play the game:
 3. Build obstrction by left clicking + hold
 4. Press space to start
 5. Press C to clear and restart!
+
+https://github.com/zulphkary/Pathfinding/assets/148035091/44f04aab-3de7-494c-84ce-3af086367363
+
+
    
 
 
-https://github.com/zulphkary/Pathfinding/assets/148035091/30cf4f13-caf2-4f4d-b36f-09deef1dfa88
+
 
